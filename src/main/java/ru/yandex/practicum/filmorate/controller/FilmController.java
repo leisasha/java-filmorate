@@ -15,12 +15,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-    private final Map<Long, Film> filmsMap = new HashMap<>();
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
     static {
         ((ch.qos.logback.classic.Logger) log).setLevel(ch.qos.logback.classic.Level.WARN);
     }
+
+    private final Map<Long, Film> filmsMap = new HashMap<>();
 
     @PostMapping
     public Film create(@RequestBody Film film) {
