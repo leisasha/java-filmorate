@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-    private final static Logger log = LoggerFactory.getLogger(FilmController.class);
+    private static final Logger log = LoggerFactory.getLogger(FilmController.class);
 
     static {
         ((ch.qos.logback.classic.Logger) log).setLevel(ch.qos.logback.classic.Level.WARN);
