@@ -15,10 +15,6 @@ import java.util.Optional;
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
-    static {
-        ((ch.qos.logback.classic.Logger) log).setLevel(ch.qos.logback.classic.Level.WARN);
-    }
-
     private final Map<Long, User> usersMap = new HashMap<>();
 
     @PostMapping
