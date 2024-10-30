@@ -40,11 +40,11 @@ public class UserService {
         return userStorage.getUserById(id);
     }
 
-    public User addFriend(long id, long friend_id) {
+    public User addFriend(long id, long friendId) {
         log.trace("Добавление пользователя в список друзей");
         User user = userStorage.getUserById(id);
-        User friendUser = userStorage.getUserById(friend_id);
-        user.addFriend(friend_id);
+        User friendUser = userStorage.getUserById(friendId);
+        user.addFriend(friendId);
         friendUser.addFriend(id);
         return user;
     }
@@ -57,20 +57,20 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User deleteFriend(long id, long friend_id) {
+    public User deleteFriend(long id, long friendId) {
         log.trace("Удаление пользователя из списока друзей");
         User user = userStorage.getUserById(id);
-        User friendUser = userStorage.getUserById(friend_id);
-        user.deleteFriend(friend_id);
+        User friendUser = userStorage.getUserById(friendId);
+        user.deleteFriend(friendId);
         friendUser.deleteFriend(id);
         return user;
     }
 
-    public Collection<User> getCommonFriend(long id, long friend_id) {
+    public Collection<User> getCommonFriend(long id, long friendId) {
         log.trace("Получение списка общих друзей");
 
         Collection<Long> userFriends = userStorage.getUserById(id).getFriends();
-        Collection<Long> friendFriends = userStorage.getUserById(friend_id).getFriends();
+        Collection<Long> friendFriends = userStorage.getUserById(friendId).getFriends();
 
         Collection<Long> commonFriends = userFriends.stream()
                 .filter(friendFriends::contains)
