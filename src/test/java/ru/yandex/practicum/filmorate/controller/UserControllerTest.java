@@ -18,7 +18,6 @@ class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        userController = new UserController();
         user = new User();
         user.setEmail("valid.email@example.com");
         user.setLogin("validLogin");
