@@ -38,17 +38,17 @@ public class FilmService {
         return filmStorage.getAll();
     }
 
-    public Film addLike(long film_id, long id) {
+    public Film addLike(long filmId, long id) {
         log.trace("Добавление лайка к фильму");
-        Film film = filmStorage.getFilmById(film_id);
+        Film film = filmStorage.getFilmById(filmId);
         User user = userStorage.getUserById(id);
         film.like(id);
         return film;
     }
 
-    public Film deleteLike(long film_id, long id) {
+    public Film deleteLike(long filmId, long id) {
         log.trace("Удаление лайка из списока");
-        Film film = filmStorage.getFilmById(film_id);
+        Film film = filmStorage.getFilmById(filmId);
         User user = userStorage.getUserById(id);
         film.dislike(id);
         return film;
