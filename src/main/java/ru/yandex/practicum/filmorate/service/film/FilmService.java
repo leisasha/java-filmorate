@@ -5,9 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
-import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -19,7 +17,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FilmService {
     private final FilmStorage filmStorage;
-    private final UserStorage userStorage;
 
     public Film create(Film film) {
         log.trace("Начало создания экземпляра {}", film);
@@ -34,24 +31,23 @@ public class FilmService {
     }
 
     public Collection<Film> getAll() {
-        log.trace("Получение записей коллекции");
+        log.trace("Получение записей коллекции film");
         return filmStorage.getAll();
+    }
+
+    public Film getFilmById(long id) {
+        log.trace("Получение film по id");
+        return filmStorage.getFilmById(id);
     }
 
     public Film addLike(long filmId, long id) {
         log.trace("Добавление лайка к фильму");
-        Film film = filmStorage.getFilmById(filmId);
-        User user = userStorage.getUserById(id);
-        film.like(id);
-        return film;
+        return filmStorage.addLike(filmId, id);
     }
 
     public Film deleteLike(long filmId, long id) {
         log.trace("Удаление лайка из списока");
-        Film film = filmStorage.getFilmById(filmId);
-        User user = userStorage.getUserById(id);
-        film.dislike(id);
-        return film;
+        return filmStorage.deleteLike(filmId, id);
     }
 
     public Collection<Film> getFilmPopular(Long count) {
@@ -66,6 +62,26 @@ public class FilmService {
                 .sorted((f1, f2) -> Integer.compare(f2.getLikes().size(), f1.getLikes().size()))
                 .limit(countCurent)
                 .collect(Collectors.toList());
+    }
+
+    public Collection<Film.Mpa> getAllMpa() {
+        log.trace("Получение записей коллекции mpa");
+        return filmStorage.getAllMpa();
+    }
+
+    public Film.Mpa getMpaById(long id) {
+        log.trace("Получение записей коллекции mpa по id");
+        return filmStorage.getMpaById(id);
+    }
+
+    public Collection<Film.Genre> getAllGenre() {
+        log.trace("Получение записей коллекции genres");
+        return filmStorage.getAllGenre();
+    }
+
+    public Film.Genre getGenreById(long id) {
+        log.trace("Получение записей коллекции genre по id");
+        return filmStorage.getGenreById(id);
     }
 
     private void validate(Film film) throws ValidationException {

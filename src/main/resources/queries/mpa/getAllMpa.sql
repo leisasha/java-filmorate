@@ -1,0 +1,4 @@
+-- getAllMpa
+SELECT ID, NAME
+FROM MPA
+ORDER BY id;

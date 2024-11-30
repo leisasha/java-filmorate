@@ -46,6 +46,38 @@ public class InMemoryFilmStorage implements FilmStorage {
             throw new NotFoundException("Фильма с " + id + " не существует.");
     }
 
+    public void delete(long id) {
+        filmsMap.remove(id);
+    }
+
+    public Film addLike(long filmId, long id) {
+        Film film = getFilmById(filmId);
+        film.like(id);
+        return film;
+    }
+
+    public Film deleteLike(long filmId, long id) {
+        Film film = getFilmById(filmId);
+        film.dislike(id);
+        return film;
+    }
+
+    public Collection<Film.Mpa> getAllMpa() {
+        return null;
+    }
+
+    public Film.Mpa getMpaById(long id) {
+        return null;
+    }
+
+    public Collection<Film.Genre> getAllGenre() {
+        return null;
+    }
+
+    public Film.Genre getGenreById(long id) {
+        return null;
+    }
+
     private long getNextId() {
         long currentMaxId = filmsMap.keySet()
                 .stream()

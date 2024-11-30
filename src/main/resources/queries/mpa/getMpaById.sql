@@ -1,0 +1,5 @@
+-- getMpaById
+SELECT ID, NAME
+FROM MPA
+WHERE id = ?
+ORDER BY id;

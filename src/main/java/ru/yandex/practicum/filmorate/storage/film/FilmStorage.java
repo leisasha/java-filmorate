@@ -12,4 +12,18 @@ public interface FilmStorage {
     Collection<Film> getAll();
 
     Film getFilmById(long id);
+
+    void delete(long id);
+
+    Film addLike(long filmId, long id);
+
+    Film deleteLike(long filmId, long id);
+
+    Collection<Film.Mpa> getAllMpa();
+
+    Film.Mpa getMpaById(long id);
+
+    Collection<Film.Genre> getAllGenre();
+
+    Film.Genre getGenreById(long id);
 }
