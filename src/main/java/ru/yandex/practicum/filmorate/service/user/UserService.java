@@ -42,28 +42,17 @@ public class UserService {
 
     public User addFriend(long id, long friendId) {
         log.trace("Добавление пользователя в список друзей");
-        User user = userStorage.getUserById(id);
-        User friendUser = userStorage.getUserById(friendId);
-        user.addFriend(friendId);
-        friendUser.addFriend(id);
-        return user;
+        return userStorage.addFriend(id, friendId);
     }
 
     public Collection<User> getUserFriends(long id) {
         log.trace("Получение списока друзей");
-        User user = userStorage.getUserById(id);
-        return user.getFriends().stream()
-                .map(userStorage::getUserById)
-                .collect(Collectors.toList());
+        return userStorage.getUserFriends(id);
     }
 
     public User deleteFriend(long id, long friendId) {
         log.trace("Удаление пользователя из списока друзей");
-        User user = userStorage.getUserById(id);
-        User friendUser = userStorage.getUserById(friendId);
-        user.deleteFriend(friendId);
-        friendUser.deleteFriend(id);
-        return user;
+        return userStorage.deleteFriend(id, friendId);
     }
 
     public Collection<User> getCommonFriend(long id, long friendId) {

@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -44,6 +45,29 @@ public class InMemoryUserStorage implements UserStorage {
             return usersMap.get(id);
         else
             throw new NotFoundException("Пользователя с " + id + " не существует.");
+    }
+
+    public User addFriend(long id, long friendId) {
+        User user = this.getUserById(id);
+        User friendUser = this.getUserById(friendId);
+        user.addFriend(friendId);
+        return user;
+    }
+
+    public Collection<User> getUserFriends(long id) {
+        log.trace("Получение списока друзей");
+        User user = this.getUserById(id);
+        return user.getFriends().stream()
+                .map(this::getUserById)
+                .collect(Collectors.toList());
+    }
+
+    public User deleteFriend(long id, long friendId) {
+        User user = this.getUserById(id);
+        User friendUser = this.getUserById(friendId);
+        user.deleteFriend(friendId);
+        friendUser.deleteFriend(id);
+        return user;
     }
 
     private long getNextId() {
